@@ -21,5 +21,8 @@
   "bugs": {
     "url": "https://github.com/maximumdata/instant-file-transfer/issues"
   },
-  "homepage": "https://github.com/maximumdata/instant-file-transfer#readme"
+  "homepage": "https://github.com/maximumdata/instant-file-transfer#readme",
+  "dependencies": {
+    "qrcode-terminal": "^0.12.0"
+  }
 }
