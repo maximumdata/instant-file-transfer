@@ -23,6 +23,13 @@
   },
   "homepage": "https://github.com/maximumdata/instant-file-transfer#readme",
   "dependencies": {
-    "qrcode-terminal": "^0.12.0"
+    "express": "^4.16.3",
+    "ip": "^1.1.5",
+    "qrcode-terminal": "^0.12.0",
+    "yargs": "^11.0.0"
+  },
+  "bin": {
+    "ift": "index.js",
+    "instant-file-transfer": "index.js"
   }
 }
