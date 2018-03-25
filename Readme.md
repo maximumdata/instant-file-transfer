@@ -1,6 +1,8 @@
 # instant-file-transfer
 Quickly transfer files from your terminal to your phone.
 
+![Example GIF](animation.gif?raw=true "Example GIF")
+
 ### Usage
 `instant-file-transfer foo.jpg`
 
