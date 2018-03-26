@@ -27,10 +27,12 @@ const createListener = () => {
 
 const routeHandler = () => {
     app.get('*', (req, res) => {
-        res.download(filePath, `${argv._}`, (err) => {
+        res.set("Content-Disposition", `attachment;filename=${argv._}`);
+        res.set("Content-Type", "application/octet-stream");
+        res.download(filePath, `${argv._}`/*, (err) => {
             if (err) { handleError(err); }
-            else { process.exit(); }
-        });
+            else { setTimeout(process.exit, 5000); }
+        }*/);
     });
 
     createListener();
