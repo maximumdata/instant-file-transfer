@@ -4,7 +4,7 @@
   "description": "Spin up a file server to trasnfer a file to your phone right from the terminal",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha test/index.js"
   },
   "repository": {
     "type": "git",
@@ -31,5 +31,9 @@
   "bin": {
     "ift": "index.js",
     "instant-file-transfer": "index.js"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "mocha": "^5.0.5"
   }
 }

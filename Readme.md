@@ -1,4 +1,6 @@
 # instant-file-transfer
+[![Build Status](https://travis-ci.org/maximumdata/instant-file-transfer.svg?branch=master)](https://travis-ci.org/maximumdata/instant-file-transfer)
+
 Quickly transfer files from your terminal to your phone.
 
 ![Example GIF](animation.gif?raw=true "Example GIF")
