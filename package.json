@@ -1,6 +1,6 @@
 {
   "name": "instant-file-transfer",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Spin up a file server to trasnfer a file to your phone right from the terminal",
   "main": "index.js",
   "scripts": {
