@@ -5,45 +5,59 @@ const qrcode = require('qrcode-terminal');
 const ip = require('ip');
 const app = require('express')();
 const argv = require('yargs')
-                .usage('Usage: $0 <file name> [options]')
-                .demandCommand(1)
-                .help('h')
-                .describe('p', 'Set the port to be used, otherwise 8080')
-                .example('$0 foo.jpg -p 7080', 'generate qrcode to serve foo.jpg on port 7080')
-                .argv;
+	.usage('Usage: $0 <file name> [options]')
+	.help('h')
+	.describe('p', 'Set the port to be used, otherwise 8080')
+	.describe('l', 'Send a link instead of a file')
+	.describe('s', 'Use a smaller qr code (useful for quake style terminals)')
+	.example('$0 foo.jpg -p 7080', 'generate qrcode to serve foo.jpg on port 7080')
+	.example('$0 -l https://google.com', 'open a link to https://google.com when the qr code is scanned')
+	.example('$0 bar.png -p 3260 -s', 'generate a smaller qr code to serve bar.png on port 3260')
+	.argv;
 
 
-let filePath = path.normalize(`${process.cwd()}/${argv._}`);
-let port = argv.p || 8080;
+const file = () => {
+	const filePath = path.normalize(`${process.cwd()}/${argv._}`);
+	const port = argv.p || 8080;
 
-const handleError = (err) => {
-    console.error(err);
-    process.exit();
+	const handleError = (err) => {
+		console.error(err);
+		process.exit();
+	}
+
+	const createListener = () => {
+		app.listen(port, () => { qrcode.generate(`http://${ip.address()}:${port}`, { small: argv.s ? true : false }) });
+	}
+
+	const routeHandler = () => {
+		app.get('*', (req, res) => {
+			res.set("Content-Disposition", `attachment;filename=${argv._}`);
+			res.set("Content-Type", "application/octet-stream");
+			res.download(filePath, `${argv._}`);
+		});
+
+		createListener();
+	}
+
+	fs.lstat(filePath, (err, stats) => {
+		if (err) { handleError(err); }
+
+		if (!stats.isDirectory()) {
+			routeHandler();
+		} else {
+			handleError('Directory support not available yet!');
+		}
+	});
+
 }
 
-const createListener = () => {
-    app.listen(port, () => { qrcode.generate(`http://${ip.address()}:${port}`) });
+const link = () => {
+	qrcode.generate(argv.l, { small: argv.s ? true : false });
 }
 
-const routeHandler = () => {
-    app.get('*', (req, res) => {
-        res.set("Content-Disposition", `attachment;filename=${argv._}`);
-        res.set("Content-Type", "application/octet-stream");
-        res.download(filePath, `${argv._}`/*, (err) => {
-            if (err) { handleError(err); }
-            else { setTimeout(process.exit, 5000); }
-        }*/);
-    });
-
-    createListener();
+if (!argv.l && argv._.length < 1) {
+	console.error('No filename or link supplied, exiting');
+	process.exit();
 }
 
-fs.lstat(filePath, (err, stats) => {
-    if (err) { handleError(err); }
-
-    if (!stats.isDirectory()) {
-        routeHandler();
-    } else {
-        handleError('Directory support not available yet!');
-    }
-});
+argv.l ? link() : file();
