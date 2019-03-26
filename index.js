@@ -55,7 +55,7 @@ const link = () => {
 	qrcode.generate(argv.l, { small: argv.s ? true : false });
 }
 
-if (!argv.l && !argv._) {
+if (!argv.l && argv._.length < 1) {
 	console.error('No filename or link supplied, exiting');
 	process.exit();
 }
