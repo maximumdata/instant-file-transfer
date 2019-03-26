@@ -7,11 +7,22 @@ Quickly transfer files from your terminal to your phone.
 ### Usage
 `instant-file-transfer foo.jpg`
 
-Spins up an express server that will serve the file and output a QR code with that will link to the server, triggering a download of the file.
+Spins up an express server that will serve the file and output a QR code with that will link to the server, triggering a download of the file when scanned by your phone.
 ### Options
 `-p`
 
 Set the port to use for the server, will default to 8080 if nothing is passed.
+
+`-s`
+
+Use a smaller QR code, useful if you (like me) use a quake style terminal with limited vertical height
+
+`-l`
+
+New in 2.0.0 - using a `-l` flag will instead generate a traditional QR code to a given URL. This will skip the web-server, and can also be used with `-s`. For example, to generate a small QR code link to my github profile:
+```
+ift -l https://github.com/maximumdata -s
+```
 ### Alias
 `ift` is made available as an alias for `instant-file-transfer`
 
