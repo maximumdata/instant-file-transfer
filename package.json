@@ -1,6 +1,6 @@
 {
   "name": "instant-file-transfer",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Spin up a file server to transfer a file to your phone right from the terminal",
   "main": "index.js",
   "scripts": {
@@ -26,7 +26,7 @@
     "express": "^4.16.3",
     "ip": "^1.1.5",
     "qrcode-terminal": "^0.12.0",
-    "yargs": "^11.0.0"
+    "yargs": "^15.3.1"
   },
   "bin": {
     "ift": "index.js",
