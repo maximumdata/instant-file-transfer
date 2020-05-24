@@ -3,7 +3,9 @@ const fs = require('fs');
 const path = require('path');
 const qrcode = require('qrcode-terminal');
 const ip = require('ip');
-const app = require('express')();
+const serveIndex = require('serve-index');
+const express = require('express');
+const app = express();
 const argv = require('yargs')
 	.usage('Usage: $0 <file name> [options]')
 	.help('h')
@@ -45,7 +47,8 @@ const file = () => {
 		if (!stats.isDirectory()) {
 			routeHandler();
 		} else {
-			handleError('Directory support not available yet!');
+			app.use('/', express.static(filePath), serveIndex(filePath, { 'icons': true, hidden: true, view: 'details'}) );
+			createListener();
 		}
 	});
 
