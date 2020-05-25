@@ -8,6 +8,10 @@ Quickly transfer files from your terminal to your phone.
 `instant-file-transfer foo.jpg`
 
 Spins up an express server that will serve the file and output a QR code with that will link to the server, triggering a download of the file when scanned by your phone.
+
+#### New in 3.0!
+Directory support is here! Invoke it via passing the current directory as the input. `ift ./`
+
 ### Options
 `-p`
 
