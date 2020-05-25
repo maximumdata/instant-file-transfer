@@ -3,7 +3,9 @@ const fs = require('fs');
 const path = require('path');
 const qrcode = require('qrcode-terminal');
 const ip = require('ip');
-const app = require('express')();
+const serveIndex = require('serve-index');
+const express = require('express');
+const app = express();
 const argv = require('yargs')
 	.usage('Usage: $0 <file name> [options]')
 	.help('h')
@@ -29,7 +31,7 @@ const file = () => {
 		app.listen(port, () => { qrcode.generate(`http://${ip.address()}:${port}`, { small: argv.s ? true : false }) });
 	}
 
-	const routeHandler = () => {
+	const fileHandler = () => {
 		app.get('*', (req, res) => {
 			res.set("Content-Disposition", `attachment;filename=${argv._}`);
 			res.set("Content-Type", "application/octet-stream");
@@ -39,13 +41,18 @@ const file = () => {
 		createListener();
 	}
 
+	const directoryHandler = () => {
+		app.use('/', express.static(filePath), serveIndex(filePath, { 'icons': true, view: 'details'}) );
+		createListener();
+	}
+
 	fs.lstat(filePath, (err, stats) => {
 		if (err) { handleError(err); }
 
 		if (!stats.isDirectory()) {
-			routeHandler();
+			fileHandler();
 		} else {
-			handleError('Directory support not available yet!');
+			directoryHandler();
 		}
 	});
 
