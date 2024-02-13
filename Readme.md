@@ -1,5 +1,7 @@
 # instant-file-transfer
 
+[![CodeFactor](https://www.codefactor.io/repository/github/maximumdata/instant-file-transfer/badge)](https://www.codefactor.io/repository/github/maximumdata/instant-file-transfer)
+
 Quickly transfer files from your terminal to your phone.
 
 ![Example GIF](animation.gif?raw=true 'Example GIF')
